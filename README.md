@@ -1,6 +1,1 @@
-a62608,Marco António Gonçalves de Sousa,smarqito 
-
-a88000,Gerson Henrique de Araujo Junior,GresosJ 
-
-a93271,José Alberto Ferreira Malheiro,José Malheiro 
-
+This is my project for Laboratorios de Informatica 3, at i did in my 2 year.
