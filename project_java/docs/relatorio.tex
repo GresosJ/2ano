@@ -1,0 +1,243 @@
+\documentclass[11pt]{article}
+
+% Language setting
+\usepackage[portuguese]{babel}
+
+% Set page size and margins
+\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{minted}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage[all]{xy}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Laboratórios de Informática III}
+\author{Grupo 43 \\ 62608 - Marco Sousa \\ 93271 - José Malheiro \\ 88000 - Gerson Junior} 
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	Este projeto permitiu desenvolver competências de \textbf{Engenharia de Software}, nomeadamente \textit{modularidade, encapsulamento, reutilização e escalabilidade} de programas.
+	
+	Foi utilizada a arquitetura \textit{Model - View - Controller} com estratégia \textit{facade}, juntamente com a linguagem de programação \textit{Java}.
+	
+	Num contexto semelhante ao trabalho anteriormente elaborado, programou-se um \textbf{Sistema de Gestão de Reviews}, incluindo uma interação I/O dinâmica, carregamento e gravação de informação, bem como uma gestão interna desta, otimizada através da comunicação efetiva elaborada entre as diferentes classes criadas.
+\end{abstract}
+
+\section{Introdução}
+
+O presente relatório foi redigido no âmbito da unidade curricular (UC) \underline{Laboratórios de Informática} e remete-se à elaboração de um projeto na liguagem de programação \textit{Java} para um \textbf{Sistema de Gestão de Reviews}.
+
+A construção do projeto teve como referência a orientação dos docentes da UC e principal objetivo de desenvolver
+conceitos de modularidade, encapsulamento, construção de código reutilizável e otimização através da escolha de estratégias para aumentar a rapidez do programa.
+
+Em adição, permitiu o aprofundamento sobre o desenvolvimento de programas na linguagem Java.
+
+\section{Estrutura do Projeto}
+
+Optou-se por um modelo que baseia-se nos princípios do MVC \textit{(Model View Controller)}, mas em conjunto com uma estratégia \textit{facade}, 
+para diminuir as dependências entre classes, encapsular e esconder aquelas que se encontram atrás, de modo a evoluirem de forma autónoma;
+tudo no sentido de uma melhor organização e modularização do código.
+
+Tomou-se, ainda, a liberdade de construir interfaces para basicamente todas as classes que constituem o projeto,
+de modo a aumentar a \textit{abstração} e tornar o código mais flexível;
+o programa fica menos volátil e frágil, sendo possível variações na sua implementação.  
+
+A arquitetura criada compreende, essencialmente, seis camadas de desenvolvimento:
+
+\begin{itemize}
+	\item Domain
+		\begin{itemize}
+			\item Estruturas de dados básicas
+			\item Lógica inicial 
+		\end{itemize}
+	\item Services
+		\begin{itemize}
+			\item Catálogos das classes base
+			\item Expande a lógica inicial para um maior grupo de objetos
+			\item Permitem estabelecer a relação entre as estruturas
+			\item Facilita a manipulação dos dados
+		\end{itemize}
+	\item GestReviews
+		\begin{itemize}
+			\item Classe agregadora 
+			\item Utiliza a lógica do \textit{Domain} extendida por \textit{Services}
+			\item Calcula a informação a ser passada ao \textit{Controller} 
+		\end{itemize}
+	\item Middleware
+		\begin{itemize}
+			\item Exceções criadas
+			\item Melhora a visualização de possíveis erros
+			\item Providência um \textit{debug} facilitado
+		\end{itemize}
+	\item Controller
+		\begin{itemize}
+			\item Ponto de entrada do utilizador
+			\item Comunica com o \textit{GestReviews} para gerar dados
+		\end{itemize}
+	\item View	
+		\begin{itemize}
+			\item É atualizado pelo \textit{Controller}
+			\item Apresenta a informação ao utilizador
+			\item É o ponto de saída da informação
+		\end{itemize}
+\end{itemize}
+
+A interação com o utilizador foi conseguida através do desenvolvimento de várias \textit{frames} que facilitam a visualização do trabalho, a escolha das consultas iterativas e a inserção dos valores no programa. 
+
+A execução do programa tem três propósitos principais:
+
+\begin{enumerate}
+	\item Ler ficheiros e carregar/popular a estrutura interna
+	\item Apresentar valores estatísticos dos ficheiros carregados
+	\item Atribuir um resultado para cada consulta e visualizá-lo
+\end{enumerate}
+
+\begin{equation*}
+	\xymatrixcolsep{4pc}\xymatrix {
+		& & & CSV or .dat\ar@{.o}[dl]_{load} \\
+	View\ar@<1ex>[r]\ar@<1ex>[d] & Controller\ar@<1ex>[r]\ar@<1ex>[l] & GestReviews\ar@<1ex>[l]\ar@{.o}[r]_{save} & .dat \\
+	User\ar@<1ex>[u] \\
+	& IBusRepo\ar[uur] & IUserRepo\ar[uu] & IRevRepo\ar[uul] & IStatsRepo\ar[uull] \\
+	& IBusiness\ar[u] & IUser\ar[u] & IReview\ar[u]
+	}
+\end{equation*}
+
+\subsection{Estruturas de Dados}
+
+As estruturas de dados principais criadas para representar a informação necessária para a gestão de Reviews foram \underline{Review}, \underline{Business} e \underline{User}.
+
+No sentido de garantir o encapsulamento da informação, as classes criadas foram desenvolvidas de modo a que estrutura seja desconhecida por quem utiliza a API.
+
+Assim, são disponibilizados métodos que constroem, acedem e alteram a classe e as suas variáveis de instância (por exemplo, Construtores, \textit{getters} e \textit{setters}).
+
+É implementado, em adição a estes métodos, a interface \textit{Comparable} para ser possível a comparação entre instâncias do mesmo objeto.
+
+A relação estabelecida entre as estruturas principais pode ser descrita como:
+
+\begin{equation*}
+	\xymatrixcolsep{5pc}\xymatrix {
+	& Review \\ Business\ar[ur] |-{One-to-Many}\ar[rr] && User\ar[ul] |-{One-to-Many}\ar[ll]^{Many-to-Many}
+	}
+\end{equation*}
+
+\vspace{1pc}
+Na package do \textit{Domain} também podemos contar com classes que vão entrar no novo parâmetro de estatísticas adicionado, como o caso das estruturas \underline{FileRead}, auxiliar de \underline{FilesRead} e \underline{Crono}.
+
+Adicionado a estes temos estruturas, como \textit{Accumulator} e \textit{KeySetValue}, criadas por utilidade, no âmbito de melhorar a forma de guardar a informação nas outras classes.
+
+Para todas as classes inferiores, para além de serem criadas \textit{interfaces} próprias, foi ainda implementada a interface \textit{Serializable} para permitir a leitura em binário. 
+
+Devido à hierarquia do projeto as classe superiores vão também herdar esta implementação.
+
+\subsubsection{Review} \label{review}
+
+\begin{minted}{java}
+
+public class Review implements IReview, Serializable, Comparable<Review> {
+	private String review_id;
+	private String user_id;
+	private String business_id;
+	private Double stars;
+	private Integer useful;
+	private Integer funny;
+	private Integer cool;
+	private LocalDateTime date;
+	private String text;
+}
+\end{minted}
+
+Armazena a informação de cada Review. Ver \ref{review_api}.
+
+Na sua interface \textbf{IReview} estão incluídos todos os \textit{getters} e \textit{setters} que são necessários para fazer alterações, bem como o método \textit{equals}, \textit{clone} para auxiliar na criação e validação de novas intãncias da classe e, por fim, um método \textit{compareTo} para comparar dois objetos.
+
+Foi criada, para o auxílio do programa e como sugestão dos docentes da UC, uma classe dedicada a testar estruturas do tipo \textit{Review}, em \textbf{ReviewTest}, que analisa a execução da classe, nomeadamente o bom funcionamento de construtores, \textit{getters} etc.
+
+Por fim, é notável a criação de um construtor que recebe especificamente a \textit{String} com o \textbf{Input} de uma linha do ficheiro \textit{CSV}, sendo efetuado o \textbf{parsing} dela e populada a estrutura.
+
+\subsubsection{Business}
+
+\begin{minted}{java}
+	
+public class Business implements IBusiness, Serializable, Comparable<Business> {
+
+	private String id;
+	private String name;
+	private String city;
+	private String state;
+	private Set<String> categories;
+}
+\end{minted}
+
+Estrutura criada para guardar a informação de um negócio (Business). Ver \ref{bus_api}.
+
+A \textit{interface} associada é \textbf{IBusiness} e, de igual forma à estrutura anterior, possui métodos como os \textit{getters}, \textit{setters}, etc.
+
+Para além da criação de métodos, como \textit{compareTo} e o construtor pelo \textit{Input}, foi também criada uma classe de Teste em \textbf{BusinessTest}.
+
+\subsubsection{User}
+
+\begin{minted}{java}
+
+public class User implements IUser, Serializable, Comparable<User> {
+
+	private String id;
+	private String name;
+	private Set<String> friends;
+}	
+\end{minted}
+
+Armazena a informação de cada utilizador. Ver \ref{usr_api}.
+
+Contém a sua \textit{interface} em \textbf{IBusiness} e a sua classe de teste em \textbf{UserTest} e, como nas anteriores, possuí o método comparaTo devido a implementação da interface \textit{Comparable}.
+
+\subsubsection{Estatísticas}
+
+\subsubsection{Estruturas Auxiliares}
+
+\subsection{Repositórios de Informações - Catálogos}
+
+\subsubsection{ReviewRepository}
+
+\subsubsection{BusinessRepository}
+
+\subsubsection{UserRepository}
+
+\subsubsection{UserStats}
+
+\subsubsection{BusStats}
+
+\subsubsection{StatsRepository}
+
+\subsection{Sistema Gestão de Recursos - GestReviews}
+
+query moment
+
+\subsection{Controller}
+
+<<<<<<< Updated upstream
+\subsection{Considerações Finais}
+=======
+\subsection{View}
+>>>>>>> Stashed changes
+
+\section{Anexos}
+
+\subsection{Review API} \label{review_api}
+
+\inputminted{java}{../src/Domain/Interfaces/IReview.java}
+
+\subsection{Business API} \label{bus_api}
+
+\inputminted{java}{../src/Domain/Interfaces/IBusiness.java}
+
+\subsection{User API} \label{usr_api}
+
+\inputminted{java}{../src/Domain/Interfaces/IUser.java}
+
+\end{document}

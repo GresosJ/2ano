@@ -1,0 +1,10 @@
+Controller
+Domain.Interfaces
+Domain.Model
+GestReviews
+GestReviews.Queries
+Middleware
+Middleware.Domain
+Persistence
+Services.Interfaces
+Services.Repositories

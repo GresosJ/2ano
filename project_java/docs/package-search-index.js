@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"Controller"},{"l":"Domain.Interfaces"},{"l":"Domain.Model"},{"l":"GestReviews"},{"l":"GestReviews.Queries"},{"l":"Middleware"},{"l":"Middleware.Domain"},{"l":"Persistence"},{"l":"Services.Interfaces"},{"l":"Services.Repositories"}]

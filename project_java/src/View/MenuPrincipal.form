@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="View.MenuPrincipal">
+  <grid id="27dc6" binding="MenuP" layout-manager="GridLayoutManager" row-count="6" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="100" left="100" bottom="100" right="100"/>
+    <constraints>
+      <xy x="20" y="20" width="500" height="405"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="67bc1" class="javax.swing.JLabel" binding="Title">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="OCR A Extended" size="24"/>
+          <text value="GestReviews"/>
+        </properties>
+      </component>
+      <component id="3608a" class="javax.swing.JButton" binding="saveFile">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Gravar Fiheiro"/>
+        </properties>
+      </component>
+      <component id="a1438" class="javax.swing.JButton" binding="loadFile">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Carregar Ficheiro"/>
+        </properties>
+      </component>
+      <component id="1f2f9" class="javax.swing.JButton" binding="querys">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Query's"/>
+        </properties>
+      </component>
+      <component id="efe2" class="javax.swing.JButton" binding="exitB">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Sair"/>
+        </properties>
+      </component>
+      <component id="185a2" class="javax.swing.JButton" binding="MetodosE">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Metodos Estatisticos"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
